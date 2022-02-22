@@ -791,6 +791,7 @@ const loadQuery = () => {
 	if (circle) {
 		circle.select();
 		showGpCircleBox();
+		updateGpCircleBox();
 	}
 };
 
