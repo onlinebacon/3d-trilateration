@@ -212,8 +212,8 @@ const materials = {
 			},
 			stars: { type: "t", value: textureLoader.load("stars.jpg") },
 			ariesGHA: { value: 0 },
-			starsOpacity: { value: 0.8 },
-			gridOpacity: { value: 0.4 },
+			starsOpacity: { value: 0.0 },
+			gridOpacity: { value: 0.0 },
 		},
 		vertexShader: vertexShader,
 		fragmentShader: earthFrag,
@@ -659,7 +659,7 @@ const addInputs = () => {
 		},
 	});
 	addRangeInput({
-		title: 'Sky reflex',
+		title: 'Celestial sphere',
 		min: 0, max: 100, step: 1,
 		init: Math.round(materials.earth.uniforms.starsOpacity.value*100),
 		stringify: value => value + '%',
@@ -668,7 +668,7 @@ const addInputs = () => {
 		},
 	});
 	addRangeInput({
-		title: 'Grid',
+		title: 'Lat/long grid',
 		min: 0, max: 100, step: 1,
 		init: Math.round(materials.earth.uniforms.gridOpacity.value*100),
 		stringify: value => value + '%',
@@ -678,7 +678,7 @@ const addInputs = () => {
 	});
 	addBoolInput({
 		title: 'Stars',
-		init: true,
+		init: false,
 		onchange: enabled => {
 			if (enabled) {
 				stars.forEach(star => star.meshes.forEach(mesh => scene.add(mesh)));
