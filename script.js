@@ -784,9 +784,16 @@ const loadQuery = () => {
 	if (!query) return;
 	const data = query.split('&').map(arg => arg.split('='));
 	let circle;
-	for (const [, values ] of data) {
-		const [ lat, long, radius ] = values.split(',').map(v=>v*TO_RAD);
-		circle = new GpCircle(lat, long, radius);
+	for (let [, values ] of data) {
+		values = values.split(',').map(v=>v*TO_RAD);
+		if (values.length === 3) {
+			const [ lat, long, radius ] = values;
+			circle = new GpCircle(lat, long, radius);
+		} else {
+			const [ lat, long ] = values;
+			updateObserver(lat, long);
+			updateCamera();
+		}
 	}
 	if (circle) {
 		circle.select();
