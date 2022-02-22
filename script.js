@@ -779,6 +779,21 @@ window.addEventListener('keydown', e => {
 	if (key === 's') toggleInputs();
 });
 
+const loadQuery = () => {
+	const query = window.location.href.split('?')[1];
+	if (!query) return;
+	const data = query.split('&').map(arg => arg.split('='));
+	let circle;
+	for (const [, values ] of data) {
+		const [ lat, long, radius ] = values.split(',').map(v=>v*TO_RAD);
+		circle = new GpCircle(lat, long, radius);
+	}
+	if (circle) {
+		circle.select();
+		showGpCircleBox();
+	}
+};
+
 window.addEventListener('load', () => {
 	updateObserver(0, 0, 1, 45);
 	updateCamera();
@@ -791,4 +806,5 @@ window.addEventListener('load', () => {
 	animate();
 	addInputs();
 	bindCanvas();
+	loadQuery();
 });
